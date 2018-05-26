@@ -6,22 +6,138 @@
   <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
 </head>
 <style>
-  .liked{
+  .liked {
     background: deeppink;
+  }
+
+  .card {
+    width: 200px;
+    background: #ccc;
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .panel {
+    max-width: 300px;
+    border: 1px solid #999;
+    margin-bottom: 15px;
+
+  }
+
+  .panel .title {
+    border-bottom: 1px solid #999;
+  }
+
+  .panel .footer {
+    border-top: 1px solid #999;
+  }
+
+  .panel>* {
+    padding: 15px;
   }
 </style>
 
 <body>
-
-  <div id="app">
-    <like></like>
+  <h2>模具定制服务</h2>
+  <div>
+    请输入你需要定制模具的长度：<input v-model="length" />mm
+    <br/> {{length | meter}}
   </div>
+  <div id="app">
+
+    <h2>点赞功能</h2>
+    <like></like><br />
+    <h2>弹窗</h2>
+    <alert msg="Yoooooo"></alert><br />
+    <h2>动态生成超链接</h2>
+    <user username="极红Jahony"></user>
+    <h2>父子组件通信</h2>
+    <balance></balance>
+    <h2>两组件相互通信</h2>
+    <jahony></jahony>
+    <wz></wz>
+    <h2>vue 过滤器 demo</h2>
+    <!-- 把价格传入currency过滤器 -->
+    <input v-model="price" />{{price | currency('USD')}}
+    <h2>自定义指令</h2>
+    <!-- 例子：钉住图片 -->
+    <div v-pin="card1.pinned" class="card">
+      <button @click="card1.pinned = !card1.pinned">钉住/取消</button> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    </div>
+    <!-- 给v-pin传参 -->
+    <div v-pin:true.bottom.left="card2.pinned" class="card">
+      <a @click="card2.pinned = !card2.pinned" href="#">pin it</a> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    </div>
+
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+      in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+    </div>
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+      in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+    </div>
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+      in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+    </div>
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+      in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+    </div>
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+      in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+    </div>
+
+    <h2>混合mixins的使用</h2>
+    <tooltip></tooltip>
+    <Popup></Popup>
+
+    <h2>slots插槽的使用</h2>
+    <panel>
+      <div slot="content">
+        xixixixix
+      </div>
+      <div slot="title">
+        我是标题1
+      </div>
+      <div slot="footer">
+        来自smartisian手机客户端
+      </div>
+    </panel>
+
+
+  </div>
+  <template id="panel-tpl">
+    <div class="panel">
+      <div class="title">
+        <slot name="title">
+
+        </slot>
+      </div>
+      <div class="content">
+        <slot name="content">
+
+        </slot>
+
+
+      </div>
+      <div class="footer">
+        <slot name="footer">
+          更多信息
+
+        </slot>
+      </div>
+    </div>
+  </template>
   <template id="like-component-tpl">
     <button :class="{liked : liked}" @click="toggle_like()">
-      👍 {{like_count}}!
+      👍 {{like_count}}
     </button>
   </template>
   <script src="lib/vue.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>
